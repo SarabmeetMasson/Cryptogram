@@ -386,11 +386,70 @@ if action == 1:
                 CipherText += i
             print("CipherText:", CipherText)
 
-            # This code is Contributed by Boda_Venkata_Nikith
-
 
         elif playfair_cipher == 2:
             print("Playfair Cipher Decryption:")
+            # Define the Playfair decryption function
+            def playfair_decrypt(ciphertext, key):
+                # Create the Playfair square
+                alphabet = "ABCDEFGHIKLMNOPQRSTUVWXYZ"
+                square = [['' for x in range(5)] for y in range(5)]
+                key = key.upper().replace("J", "I") + alphabet
+                key = ''.join(sorted(set(key), key=key.index))
+                k = 0
+                for i in range(5):
+                    for j in range(5):
+                        square[i][j] = key[k]
+                        k += 1
+
+                # Remove any whitespace and make the ciphertext uppercase
+                ciphertext = ''.join(ciphertext.split()).upper().replace("J", "I")
+
+                # Split the ciphertext into pairs of letters
+                pairs = []
+                for i in range(0, len(ciphertext), 2):
+                    if i == len(ciphertext) - 1:
+                        pairs.append(ciphertext[i] + 'X')
+                    elif ciphertext[i] == ciphertext[i+1]:
+                        pairs.append(ciphertext[i] + 'X')
+                    else:
+                        pairs.append(ciphertext[i:i+2])
+
+                # Decrypt each pair of letters
+                plaintext = ''
+                for pair in pairs:
+                    letter1, letter2 = pair
+                    row1, col1 = 0, 0
+                    row2, col2 = 0, 0
+                    for i in range(5):
+                        for j in range(5):
+                            if square[i][j] == letter1:
+                                row1, col1 = i, j
+                            elif square[i][j] == letter2:
+                                row2, col2 = i, j
+                    if row1 == row2:
+                        plaintext += square[row1][(col1-1)%5] + square[row2][(col2-1)%5]
+                    elif col1 == col2:
+                        plaintext += square[(row1-1)%5][col1] + square[(row2-1)%5][col2]
+                    else:
+                        plaintext += square[row1][col2] + square[row2][col1]
+
+                # Remove any trailing X's
+                if plaintext[-1] == 'X':
+                    plaintext = plaintext[:-1]
+
+                # Return the plaintext
+                return plaintext
+
+            # Get user input
+            ciphertext = input("Enter Ciphertext to Decrypt: ")
+            key = input("Enter Key for Decryption: ")
+
+            # Decrypt the ciphertext
+            plaintext = playfair_decrypt(ciphertext, key)
+
+            # Print the plaintext
+            print("Plaintext: " + plaintext)
 
         else:
             print("Error, Try again.")
