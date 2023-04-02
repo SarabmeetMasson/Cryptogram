@@ -7,18 +7,14 @@ except:
 if action == 1:
     print("Cryptography:")
     try:
-        crypt = int(input("1. SHA256 \n2. SHA384 \n3. MD5 \n4. base64 \n5. Binary \n6. Decimal \n7. Hexadecimal \n8. Caesar Cipher \n9. Playfair Cipher \n10. ROT13 \n11. ROT47 \n12. Morse Code \nSelect a Cryptography Algorithm: "))
+        crypt = int(input("1. SHA256 \n2. SHA384 \n3. SHA224 \n4. SHA512 \n5. SHA1 \n6. MD5 \n7. base64 \n8. Caesar Cipher \n9. Playfair Cipher \n10. ROT13 \n11. ROT47 \n12. Morse Code \n13. Binary \n14. Decimal \n15. Hexadecimal \nSelect a Cryptography Algorithm: "))
     except:
         print("Illegal action, try again.")
 
 
 
     if crypt == 1:
-        try:
-            print("SHA256 Encoding")
-        except:
-            print("Illegal action, try again.")
-        
+        print("SHA256 Encoding")        
         import hashlib
 
         # Get input from user
@@ -40,24 +36,94 @@ if action == 1:
 
 
     elif crypt == 2:
-        print("SHA384 Hash")
+        print("SHA384 Encoding")        
         import hashlib
 
-        # Prompt the user for input
-        user_input = input("Enter a string to hash: ")
+        # Get input from user
+        input_str = input("Enter a string to Hash: ")
 
-        # Hash the user input using SHA384
-        hash_object = hashlib.sha384(user_input.encode())
+        # Encode input string to bytes
+        input_bytes = input_str.encode('utf-8')
 
-        # Get the hexadecimal representation of the hash
-        hex_dig = hash_object.hexdigest()
+        # Hash input bytes using SHA256
+        hashed_bytes = hashlib.sha384(input_bytes)
 
-        # Print the result
-        print("SHA384 hash of your input:", hex_dig)
+        # Convert hashed bytes to hexadecimal representation
+        hashed_str = hashed_bytes.hexdigest()
+
+        # Print the hash
+        print("SHA384 hash of '" + input_str + "':")
+        print(hashed_str)
 
 
 
     elif crypt == 3:
+        print("SHA224 Encoding")        
+        import hashlib
+
+        # Get input from user
+        input_str = input("Enter a string to Hash: ")
+
+        # Encode input string to bytes
+        input_bytes = input_str.encode('utf-8')
+
+        # Hash input bytes using SHA256
+        hashed_bytes = hashlib.sha224(input_bytes)
+
+        # Convert hashed bytes to hexadecimal representation
+        hashed_str = hashed_bytes.hexdigest()
+
+        # Print the hash
+        print("SHA224 hash of '" + input_str + "':")
+        print(hashed_str)
+
+
+
+    elif crypt == 4:
+        print("SHA512 Encoding")        
+        import hashlib
+
+        # Get input from user
+        input_str = input("Enter a string to Hash: ")
+
+        # Encode input string to bytes
+        input_bytes = input_str.encode('utf-8')
+
+        # Hash input bytes using SHA256
+        hashed_bytes = hashlib.sha512(input_bytes)
+
+        # Convert hashed bytes to hexadecimal representation
+        hashed_str = hashed_bytes.hexdigest()
+
+        # Print the hash
+        print("SHA512 hash of '" + input_str + "':")
+        print(hashed_str)
+
+
+
+    elif crypt == 5:
+        print("SHA1 Encoding")        
+        import hashlib
+
+        # Get input from user
+        input_str = input("Enter a string to Hash: ")
+
+        # Encode input string to bytes
+        input_bytes = input_str.encode('utf-8')
+
+        # Hash input bytes using SHA256
+        hashed_bytes = hashlib.sha1(input_bytes)
+
+        # Convert hashed bytes to hexadecimal representation
+        hashed_str = hashed_bytes.hexdigest()
+
+        # Print the hash
+        print("SHA1 hash of '" + input_str + "':")
+        print(hashed_str)
+
+
+
+    elif crypt == 6:
         print("MD5 Hash:")
         import hashlib
 
@@ -79,7 +145,7 @@ if action == 1:
 
 
 
-    elif crypt == 4:
+    elif crypt == 7:
         try:
             base64 = int(input("base64: \n1. Encryption \n2. Decryption \nYou Chose: "))
         except:
@@ -101,58 +167,8 @@ if action == 1:
             # Decode the Base64 message
             decoded_message = base64.b64decode(message).decode('utf-8')
             print("Decoded message:", decoded_message)
-
         else:
             print("Error, Try again.")
-
-
-
-    elif crypt == 5:
-        try:
-            binary = int(input("Binary: \n1. Encryption \n2. Decryption \nYou Chose: "))
-        except:
-            print("Illegal action, try again.")
-        if binary == 1:
-            print("Binary Encryption:")
-
-        elif binary == 2:
-            print("Binary Decryption:")
-
-        else:
-            print("Error, Try again.")
-
-
-
-    elif crypt == 6:
-            try:
-                decimal = int(input("Decimal: \n1. Encryption \n2. Decryption \nYou Chose: "))
-            except:
-                print("Illegal action, try again.")
-            if decimal == 1:
-                print("Decimal Encryption:")
-
-
-            elif decimal == 2:
-                print("Decimal Decryption:")
-
-            else:
-                print("Error, Try again.")
-
-
-
-    elif crypt == 7:
-            try:
-                hexadecimal = int(input("Hexadecimal: \n1. Encryption \n2. Decryption \nYou Chose: "))
-            except:
-                print("Illegal action, try again.")
-            if hexadecimal == 1:
-                print("Hexadecimal Encryption:")
-
-            elif hexadecimal == 2:
-                print("Hexadecimal Decryption:")
-
-            else:
-                print("Error, Try again.")
 
 
 
@@ -588,6 +604,54 @@ if action == 1:
 
         elif morse_code == 2:
             print("Morse Code Decryption:")
+
+        else:
+            print("Error, Try again.")
+
+
+
+    elif crypt == 13:
+        try:
+            binary = int(input("Binary Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+        except:
+            print("Illegal action, try again.")
+        if binary == 1:
+            print("Binary Code Encryption:")
+
+        elif binary == 2:
+            print("Binary Code Decryption:")
+
+        else:
+            print("Error, Try again.")
+
+
+
+    elif crypt == 14:
+        try:
+            decimal = int(input("Decimal Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+        except:
+            print("Illegal action, try again.")
+        if decimal == 1:
+            print("Decimal Code Encryption:")
+
+        elif decimal == 2:
+            print("Decimal Code Decryption:")
+
+        else:
+            print("Error, Try again.")
+
+
+
+    elif crypt == 15:
+        try:
+            hexadecimal = int(input("Hexadecimal Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+        except:
+            print("Illegal action, try again.")
+        if hexadecimal == 1:
+            print("Hexadecimal Code Encryption:")
+
+        elif hexadecimal == 2:
+            print("Hexadecimal Code Decryption:")
 
         else:
             print("Error, Try again.")
