@@ -659,44 +659,141 @@ if action == 1:
 
 
 elif action == 2:
-    print("Stegnography:")
-    # Import necessary modules
-    import os
+    # PIL module is used to extract
+    # pixels of image and modify it
+    from PIL import Image
 
-    # Get the file name and message from user input
-    file_name = input("Enter the name of the image file to hide the message in: ")
-    message = input("Enter the message to hide: ")
+    # Convert encoding data into 8-bit binary
+    # form using ASCII value of characters
+    def genData(data):
 
-    # Open the image file
-    with open(file_name, "rb") as f:
-        image_data = f.read()
+            # list of binary codes
+            # of given data
+            newd = []
 
-    # Convert the message to binary
-    binary_message = ''.join(format(ord(i), '08b') for i in message)
+            for i in data:
+                newd.append(format(ord(i), '08b'))
+            return newd
 
-    # Check if the message can fit inside the image
-    if len(binary_message) > len(image_data):
-        raise ValueError("Message is too large to fit in the image")
+    # Pixels are modified according to the
+    # 8-bit binary data and finally returned
+    def modPix(pix, data):
 
-    # Create a new byte array to hide the message
-    new_data = bytearray(image_data)
+        datalist = genData(data)
+        lendata = len(datalist)
+        imdata = iter(pix)
 
-    # Hide the message inside the new byte array
-    index = 0
-    for i in range(len(binary_message)):
-        bit = int(binary_message[i])
-        if bit == 1:
-            new_data[i] |= 1
+        for i in range(lendata):
+
+            # Extracting 3 pixels at a time
+            pix = [value for value in imdata.__next__()[:3] +
+                                    imdata.__next__()[:3] +
+                                    imdata.__next__()[:3]]
+
+            # Pixel value should be made
+            # odd for 1 and even for 0
+            for j in range(0, 8):
+                if (datalist[i][j] == '0' and pix[j]% 2 != 0):
+                    pix[j] -= 1
+
+                elif (datalist[i][j] == '1' and pix[j] % 2 == 0):
+                    if(pix[j] != 0):
+                        pix[j] -= 1
+                    else:
+                        pix[j] += 1
+                    # pix[j] -= 1
+
+            # Eighth pixel of every set tells
+            # whether to stop ot read further.
+            # 0 means keep reading; 1 means thec
+            # message is over.
+            if (i == lendata - 1):
+                if (pix[-1] % 2 == 0):
+                    if(pix[-1] != 0):
+                        pix[-1] -= 1
+                    else:
+                        pix[-1] += 1
+
+            else:
+                if (pix[-1] % 2 != 0):
+                    pix[-1] -= 1
+
+            pix = tuple(pix)
+            yield pix[0:3]
+            yield pix[3:6]
+            yield pix[6:9]
+
+    def encode_enc(newimg, data):
+        w = newimg.size[0]
+        (x, y) = (0, 0)
+
+        for pixel in modPix(newimg.getdata(), data):
+
+            # Putting modified pixels in the new image
+            newimg.putpixel((x, y), pixel)
+            if (x == w - 1):
+                x = 0
+                y += 1
+            else:
+                x += 1
+
+    # Encode data into image
+    def encode():
+        img = input("Image to hide the message in[with extension]: ")
+        image = Image.open(img, 'r')
+
+        data = input("Message to hide:  ")
+        if (len(data) == 0):
+            raise ValueError('Data is Empty')
+
+        newimg = image.copy()
+        encode_enc(newimg, data)
+
+        new_img_name = input("New image name[with extension]: ")
+        newimg.save(new_img_name, str(new_img_name.split(".")[1].upper()))
+
+    # Decode the data in the image
+    def decode():
+        img = input("Image to extract hidden message from[with extension]: ")
+        image = Image.open(img, 'r')
+
+        data = ''
+        imgdata = iter(image.getdata())
+
+        while (True):
+            pixels = [value for value in imgdata.__next__()[:3] +
+                                    imgdata.__next__()[:3] +
+                                    imgdata.__next__()[:3]]
+
+            # string of binary data
+            binstr = ''
+
+            for i in pixels[:8]:
+                if (i % 2 == 0):
+                    binstr += '0'
+                else:
+                    binstr += '1'
+
+            data += chr(int(binstr, 2))
+            if (pixels[-1] % 2 != 0):
+                return data
+
+    # Main Function
+    def main():
+        a = int(input("Image Stegnography \n1. Encode \n2. Decode \nYou Chose: "))
+        if (a == 1):
+            encode()
+
+        elif (a == 2):
+            print("Decoded Word :  " + decode())
         else:
-            new_data[i] &= ~1
-        index += 1
+            raise Exception("Enter correct input")
 
-    # Save the new image with the hidden message
-    new_file_name = os.path.splitext(file_name)[0] + "_Hidden" + os.path.splitext(file_name)[1]
-    with open(new_file_name, "wb") as f:
-        f.write(new_data)
+    # Driver Code
+    if __name__ == '__main__' :
 
-    print("Message hidden in file", new_file_name)
+        # Calling main function
+        main()
 
 
 else:
