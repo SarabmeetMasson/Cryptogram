@@ -4,44 +4,45 @@ Cryptogram is an open-source encryption and steganography tool designed for Linu
 
 # Features
 
-    Encryption and decryption of messages using a range of cryptographic algorithms, including AES, RSA, and Blowfish.
-    Hiding messages within digital images using steganography techniques.
-    Customizable settings to meet the needs of different users.
-    User-friendly interface for easy navigation and use.
-    Cross-platform compatibility, allowing for use on different Linux distributions.
+- Encryption and decryption of messages using a range of cryptographic algorithms.
+- Hiding messages within digital images using steganography techniques.
+- Customizable settings to meet the needs of different users.
+- User-friendly interface for easy navigation and use.
+- Cross-platform compatibility, allowing for use on different Linux distributions.
 
 # Installation
 
 To install Cryptogram, follow these steps:
-
-    Clone the repository using the command: git clone https://github.com/SarabmeetMasson/Cryptogram.git
-    Navigate to the project directory using the command: cd Cryptogram
-    Install the required Python libraries using the command: pip install -r requirements.txt
+- Clone the repository using the command:
+    git clone https://github.com/SarabmeetMasson/Cryptogram.git
+- Navigate to the project directory using the command:
+    cd Cryptogram
+- Install the required Python libraries using the command:
+    pip install -r requirements.txt
 
 # Usage
 
 To use Cryptogram, follow these steps:
-
-    Run the Cryptogram.py file using the command: python3 Cryptogram.py
-    Select Cryptography or Steganography based on your requirement.
-    Choose an algorithm and whether you want to encrypt or decrypt data.
+- Run the Cryptogram.py file using the command: python3 Cryptogram.py
+- Select Cryptography or Steganography based on your requirement.
+- Choose an algorithm and whether you want to encrypt or decrypt data.
 
 # Features
 
-    Provides advanced encryption and decryption using cryptography and steganography techniques
-    Supports various image and video file formats for hiding the encrypted data
-    Offers multiple encryption algorithms for added security
-    Provides a user-friendly command-line interface for ease of use
-    Designed focussing the need of secure communication and data safety for Linux users
+- Provides advanced encryption and decryption using cryptography and steganography techniques
+- Supports various image and video file formats for hiding the encrypted data
+- Offers multiple encryption algorithms for added security
+- Provides a user-friendly command-line interface for ease of use
+- Designed focussing the need of secure communication and data safety for Linux users
 
 # Future Scope
 
 In the future, we plan to add the following features to Cryptogram:
 
-    GUI interface for a more intuitive user experience
-    Integration with cloud storage platforms for added convenience
-    Support for more file formats for hiding encrypted data
-    Advanced encryption algorithms to provide even greater security
+- GUI interface for a more intuitive user experience
+- Integration with cloud storage platforms for added convenience
+- Support for more file formats for hiding encrypted data
+- Advanced encryption algorithms to provide even greater security
 
 # Contributing
 
