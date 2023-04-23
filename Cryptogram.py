@@ -1,20 +1,36 @@
-print("What would you like to do?\n1. Cryptography\n2. Stegnography")
+from colored import fg, bg, attr
+
+logo_ascii = """
+   _____                  _         _____                     
+  / ____|                | |       / ____|                    
+ | |     _ __ _   _ _ __ | |_ ___ | |  __ _ __ __ _ _ __ ___  
+ | |    | '__| | | | '_ \| __/ _ \| | |_ | '__/ _` | '_ ` _ \ 
+ | |____| |  | |_| | |_) | || (_) | |__| | | | (_| | | | | | |
+  \_____|_|   \__, | .__/ \__\___/ \_____|_|  \__,_|_| |_| |_|
+               __/ | |    
+              |___/|_|    "Crack the Code, Unveil the Mystery“  
+    
+Created By: Sarabmeet Singh Masson
+"""
+print("%s %s %s" %(attr(1), fg(46), logo_ascii))
+
+print("\nWhat would you like to do?\n1. Cryptography\n2. Steganography")
 try:
     action = int(input("You Chose: "))
 except:
-    print("Illegal action, try again.")
+    print(attr(1), fg(1),"\nIllegal action, try again.")
 
 if action == 1:
-    print("Cryptography:")
+    print(attr(1), fg(178),"\nCryptography:")
     try:
-        crypt = int(input("1. SHA256 \n2. SHA384 \n3. SHA224 \n4. SHA512 \n5. SHA1 \n6. MD5 \n7. base64 \n8. Caesar Cipher \n9. Playfair Cipher \n10. ROT13 \n11. ROT47 \n12. Morse Code \n13. Binary \n14. Decimal \n15. Hexadecimal \nSelect a Cryptography Algorithm: "))
+        crypt = int(input("1. SHA256 \n2. SHA384 \n3. SHA224 \n4. SHA512 \n5. SHA1 \n6. MD5 \n7. Base64 \n8. Caesar Cipher \n9. Playfair Cipher \n10. ROT13 \n11. ROT47 \n12. Morse Code \n13. Binary \n14. Decimal \n15. Hexadecimal \nSelect a Cryptography Algorithm: "))
     except:
-        print("Illegal action, try again.")
+        print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     if crypt == 1:
-        print("SHA256 Encoding")        
+        print(attr(1), fg(153),"\nSHA256 Encoding", attr(1), fg(105))        
         import hashlib
 
         # Get input from user
@@ -36,7 +52,7 @@ if action == 1:
 
 
     elif crypt == 2:
-        print("SHA384 Encoding")        
+        print(attr(1), fg(153),"\nSHA384 Encoding", attr(1), fg(105))        
         import hashlib
 
         # Get input from user
@@ -58,7 +74,7 @@ if action == 1:
 
 
     elif crypt == 3:
-        print("SHA224 Encoding")        
+        print(attr(1), fg(153),"\nSHA224 Encoding", attr(1), fg(105))        
         import hashlib
 
         # Get input from user
@@ -80,7 +96,7 @@ if action == 1:
 
 
     elif crypt == 4:
-        print("SHA512 Encoding")        
+        print(attr(1), fg(153),"\nSHA512 Encoding", attr(1), fg(105))        
         import hashlib
 
         # Get input from user
@@ -102,7 +118,7 @@ if action == 1:
 
 
     elif crypt == 5:
-        print("SHA1 Encoding")        
+        print(attr(1), fg(153),"\nSHA1 Encoding", attr(1), fg(105))        
         import hashlib
 
         # Get input from user
@@ -124,7 +140,7 @@ if action == 1:
 
 
     elif crypt == 6:
-        print("MD5 Hash:")
+        print(attr(1), fg(153),"\nMD5 Hash", attr(1), fg(105))
         import hashlib
 
         # Get input from user
@@ -146,42 +162,44 @@ if action == 1:
 
 
     elif crypt == 7:
+        print(attr(1), fg(153),"\nBase64:")
         try:
-            base64 = int(input("base64: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            base64 = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
         if base64 == 1:
-            print("base64 Encryption:")
+            print(attr(1), fg(105), "\nBase64 Encryption: ")
             import base64
             # Get user input
-            message = input("Enter a message to Encode: ")
+            message = input("Enter Text to Encrypt: ")
             # Encode the message in Base64
             encoded_message = base64.b64encode(message.encode('utf-8'))
-            print("Encoded message:", encoded_message)
+            print("Encrypted Text: ", encoded_message)
 
         elif base64 == 2:
-            print("base64 Decryption:")
+            print(attr(1), fg(105), "\nBase64 Decryption: ")
             import base64
             # Get user input
-            message = input("Enter a message to Decode: ")
+            message = input("Enter Text to Decrypt: ")
             # Decode the Base64 message
             decoded_message = base64.b64decode(message).decode('utf-8')
-            print("Decoded message:", decoded_message)
+            print("Decoded Text: ", decoded_message)
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 8:
+        print(attr(1), fg(153),"\nCaesar Cipher: ")
         try:
-            caesar_cipher = int(input("Caesar Cipher: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            caesar_cipher = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
         if caesar_cipher == 1:
-            print("Caesar Cipher Encryption:")
+            print(attr(1), fg(105), "\nCaesar Cipher Encryption: ")
 
-            plaintext = input("Enter message to Encrypt: ")
-            shift = int(input("Enter shift value: "))
+            plaintext = input("Enter Text to Encrypt: ")
+            shift = int(input("Enter Shift value: "))
             
             def encrypt_text(plaintext,shift):
                 ciphertext = ""
@@ -202,13 +220,13 @@ if action == 1:
                         ciphertext+=ch
                 return ciphertext
             encrypted_message = encrypt_text(plaintext,shift)
-            print("Encrypted message:", encrypted_message)
+            print("Encrypted Text: ", encrypted_message)
 
         elif caesar_cipher == 2:
-            print("Caesar Cipher Decryption:")
+            print(attr(1), fg(105), "\nCaesar Cipher Decryption:")
             
-            ciphertext = input("Enter message to Decrypt: ")
-            shift = int(input("Enter shift value: "))
+            ciphertext = input("Enter Text to Decrypt: ")
+            shift = int(input("Enter Shift value: "))
             
             def decrypt_text(ciphertext,shift):
                 plaintext = ""
@@ -229,20 +247,21 @@ if action == 1:
                         plaintext+=ch
                 return plaintext
             decrypted_message = decrypt_text(ciphertext,shift)
-            print("Decrypted message:", decrypted_message)
+            print("Decrypted Text: ", decrypted_message)
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     if crypt == 9:
+        print(attr(1), fg(153),"\nPlayfair Cipher:")
         try:
-            playfair_cipher = int(input("Playfair Cipher: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            playfair_cipher = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
         if playfair_cipher == 1:
-            print("Playfair Cipher Encryption:")
+            print(attr(1), fg(105), "\nPlayfair Cipher Encryption:")
 
             # Function to convert the string to lowercase
             def toLowerCase(text):
@@ -400,11 +419,11 @@ if action == 1:
             CipherText = ""
             for i in CipherList:
                 CipherText += i
-            print("CipherText:", CipherText)
+            print("Encrypted Text: ", CipherText)
 
 
         elif playfair_cipher == 2:
-            print("Playfair Cipher Decryption:")
+            print(attr(1), fg(105), "\nPlayfair Cipher Decryption:")
             # Define the Playfair decryption function
             def playfair_decrypt(ciphertext, key):
                 # Create the Playfair square
@@ -465,20 +484,21 @@ if action == 1:
             plaintext = playfair_decrypt(ciphertext, key)
 
             # Print the plaintext
-            print("Plaintext: " + plaintext)
+            print("Decrypted Text: " + plaintext)
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 10:
+        print(attr(1), fg(153), "\nROT13")
         try:
-            rot13 = int(input("ROT13: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            rot13 = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
         if rot13 == 1:
-            print("ROT13 Encryption:")
+            print(attr(1), fg(105), "\nROT13 Encryption:")
             # Define the alphabet and special characters
             alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?\\ "
             n = len(alphabet)
@@ -497,13 +517,13 @@ if action == 1:
                 return encrypted_message
             
             # Get the message from user input
-            message = input("Enter the message to Encrypt: ")
+            message = input("Enter Text to Encrypt: ")
             # Encrypt the message using ROT13
             encrypted_message = encrypt(message)
-            print("Encrypted message:", encrypted_message)
+            print("Encrypted Text: ", encrypted_message)
 
         elif rot13 == 2:
-            print("ROT13 Decryption:")
+            print(attr(1), fg(105), "\nROT13 Decryption:")
             # Define the alphabet and special characters
             alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?\\ "
             n = len(alphabet)
@@ -522,24 +542,25 @@ if action == 1:
                 return decrypted_message
 
             # Get the decrypted message from user input
-            encrypted_message = input("Enter the message to Decrypt: ")
+            encrypted_message = input("Enter Text to Decrypt: ")
             # Decrypt the message using ROT13
             decrypted_message = decrypt(encrypted_message)
-            print("Decrypted message:", decrypted_message)
+            print("Decrypted Text: ", decrypted_message)
 
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 11:
+        print(attr(1), fg(153), "\nROT47")
         try:
-            rot47 = int(input("ROT47: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            rot47 = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
         if rot47 == 1:
-            print("ROT47 Encryption:")
+            print(attr(1), fg(105), "\nROT47 Encryption:")
             # Define the alphabet and special characters
             alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?\\ "
             n = len(alphabet)
@@ -558,13 +579,13 @@ if action == 1:
                 return encrypted_message
             
             # Get the message from user input
-            message = input("Enter the message to Encrypt: ")
+            message = input("Enter Text to Encrypt: ")
             # Encrypt the message using ROT47
             encrypted_message = encrypt(message)
-            print("Encrypted message:", encrypted_message)
+            print("Encrypted message: ", encrypted_message)
 
         elif rot47 == 2:
-            print("ROT47 Decryption:")
+            print(attr(1), fg(105), "\nROT47 Decryption:")
             # Define the alphabet and special characters
             alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;':\",./<>?\\ "
             n = len(alphabet)
@@ -583,24 +604,25 @@ if action == 1:
                 return decrypted_message
 
             # Get the decrypted message from user input
-            encrypted_message = input("Enter the message to Decrypt: ")
+            encrypted_message = input("Enter Text to Decrypt: ")
             # Decrypt the message using ROT13
             decrypted_message = decrypt(encrypted_message)
-            print("Decrypted message:", decrypted_message)
+            print("Decrypted Text: ", decrypted_message)
 
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 12:
+        print(attr(1), fg(153), "\nMorse Code:")
         try:
-            morse_code = int(input("Morse Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            morse_code = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
         if morse_code == 1:
-            print("Morse Code Encryption:")
+            print(attr(1), fg(105), "\nMorse Code Encryption: ")
             morse_code = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', ' ': '/'}
 
             def to_morse_code(text):
@@ -611,12 +633,12 @@ if action == 1:
                     else:
                         morse_text += letter
                 return morse_text
-            user_input = input("Enter a text to Encrypt in Morse Code: ")
+            user_input = input("Enter Text to Encrypt in Morse Code: ")
             morse_text = to_morse_code(user_input)
-            print("Morse Code:", morse_text)
+            print("Morse Code: ", morse_text)
 
         elif morse_code == 2:
-            print("Morse Code Decryption:")
+            print(attr(1), fg(105), "\nMorse Code Decryption:")
             morse_code = {'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---', 'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-', 'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..', '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', ' ': '/'}
             def from_morse_code(morse_text):
                 text = ''
@@ -629,62 +651,113 @@ if action == 1:
                 return text
             decryption_input = input("Enter the Morse Code to Decrypt: ")
             text = from_morse_code(decryption_input)
-            print("Decrypted Text:", text)
+            print("Decrypted Text: ", text)
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 13:
+        print(attr(1), fg(153), "\nBinary Code:")
         try:
-            binary = int(input("Binary Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            binary = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print("\nIllegal action, try again.")
+        def encrypt(message):
+            binary_message = ' '.join(format(ord(char), '08b') for char in message)
+            return binary_message
+
+        def decrypt(binary_message):
+            binary_message = binary_message.replace(' ', '')
+            binary_chunks = [binary_message[i:i+8] for i in range(0, len(binary_message), 8)]
+            message = ''.join(chr(int(chunk, 2)) for chunk in binary_chunks)
+            return message
+        
         if binary == 1:
-            print("Binary Code Encryption:")
+            print(attr(1), fg(105), "\nBinary Code Encryption:")
+            message = input("Enter Text to Encrypt: ")
+            encrypted_message = encrypt(message)
+            print("Encrypted Text: ", encrypted_message)
 
         elif binary == 2:
-            print("Binary Code Decryption:")
+            print(attr(1), fg(105), "\nBinary Code Decryption:")
+            binary_message = input("Enter Text to Decrypt: ")
+            decrypted_message = decrypt(binary_message)
+            print("Decrypted Text: ", decrypted_message)
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 14:
+        print(attr(1), fg(153), "\nDecimal Code:")
         try:
-            decimal = int(input("Decimal Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            decimal = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print("\nIllegal action, try again.")
+
+        def ascii_to_decimal(character):
+            decimal_number = ord(character)
+            return decimal_number
+
+        def decimal_to_ascii(decimal_number):
+            character = chr(decimal_number)
+            return character
+
         if decimal == 1:
-            print("Decimal Code Encryption:")
+            print(attr(1), fg(105), "\nDecimal Code Encryption:")
+            text = input("Enter Text to Encrypt: ")
+            decimal_str = " ".join(str(ascii_to_decimal(character)) for character in text)
+            print("Encrypted Text: ", decimal_str)
 
         elif decimal == 2:
-            print("Decimal Code Decryption:")
+            print(attr(1), fg(105), "\nDecimal Code Decryption:")
+            decimal_list = input("Enter Text to Decrypt: ").split()
+            ascii_text = "".join([decimal_to_ascii(int(decimal_number)) for decimal_number in decimal_list])
+            print("Decrypted Text: ", ascii_text)
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
     elif crypt == 15:
+        print(attr(1), fg(153), "\nHexadecimal Code:")
         try:
-            hexadecimal = int(input("Hexadecimal Code: \n1. Encryption \n2. Decryption \nYou Chose: "))
+            hexadecimal = int(input("1. Encryption \n2. Decryption \nYou Chose: "))
         except:
-            print("Illegal action, try again.")
+            print("\nIllegal action, try again.")
+
+        def hex_to_ascii(hex_string):
+            ascii_string = bytes.fromhex(hex_string.replace(' ', '')).decode('utf-8')
+            return ascii_string
+
+        def ascii_to_hex(ascii_string):
+            hex_string = ascii_string.encode('utf-8').hex()
+            return ' '.join(hex_string[i:i+2] for i in range(0, len(hex_string), 2))
+
         if hexadecimal == 1:
-            print("Hexadecimal Code Encryption:")
+            print(attr(1), fg(105), "\nHexadecimal Code Encryption:")
+            ascii_text = input("Enter Text to Encrypt: ")
+            hex_string = ascii_to_hex(ascii_text)
+            print("Encrypted Text: ", hex_string)
 
         elif hexadecimal == 2:
-            print("Hexadecimal Code Decryption:")
+            print(attr(1), fg(105), "\nHexadecimal Code Decryption:")
+            hex_string = input("Enter Text to Decrypt: ")
+            ascii_text = hex_to_ascii(hex_string)
+            print("Decrypted Text: ", ascii_text)
 
         else:
-            print("Error, Try again.")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
 
 
 elif action == 2:
+    print(attr(1), fg(178),"\nSteganography:")
+
     # PIL module is used to extract
     # pixels of image and modify it
     from PIL import Image
@@ -765,6 +838,7 @@ elif action == 2:
 
     # Encode data into image
     def encode():
+        print(attr(1), fg(105), "\nIMAGE Stegano Encryption:")
         img = input("Image to hide the message in[with extension]: ")
         image = Image.open(img, 'r')
 
@@ -780,6 +854,7 @@ elif action == 2:
 
     # Decode the data in the image
     def decode():
+        print(attr(1), fg(105), "\nIMAGE Stegano Decryption:")
         img = input("Image to extract hidden message from[with extension]: ")
         image = Image.open(img, 'r')
 
@@ -806,14 +881,15 @@ elif action == 2:
 
     # Main Function
     def main():
-        a = int(input("Image Stegnography \n1. Encode \n2. Decode \nYou Chose: "))
+        print(attr(1), fg(153), "\nIMAGE Steganography")
+        a = int(input("1. Encode \n2. Decode \nYou Chose: "))
         if (a == 1):
             encode()
 
         elif (a == 2):
             print("Decoded Word :  " + decode())
         else:
-            raise Exception("Enter correct input")
+            print(attr(1), fg(1),"\nIllegal action, try again.")
 
     # Driver Code
     if __name__ == '__main__' :
@@ -823,5 +899,4 @@ elif action == 2:
 
 
 else:
-    print("Error, Try again.")
-
+    print(attr(1), fg(1),"\nIllegal action, try again.")

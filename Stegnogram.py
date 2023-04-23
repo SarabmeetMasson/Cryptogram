@@ -425,8 +425,8 @@ def extract(frame):
 
 
 def encode_vid_data():
-    cap=cv2.VideoCapture("Sample_cover_files/cover_video.mp4")
-    vidcap = cv2.VideoCapture("Sample_cover_files/cover_video.mp4")    
+    cap=cv2.VideoCapture("VIDEO.mp4")
+    vidcap = cv2.VideoCapture("VIDEO.mp4")    
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     frame_width = int(vidcap.get(3))
     frame_height = int(vidcap.get(4))
