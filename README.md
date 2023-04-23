@@ -1,8 +1,8 @@
-#Cryptogram
+# Cryptogram
 
 Cryptogram is an open-source encryption and steganography tool designed for Linux users. It allows users to encrypt and decrypt messages using a variety of cryptographic algorithms and techniques, as well as hide messages within digital images using steganography.
 
-#Features
+# Features
 
     Encryption and decryption of messages using a range of cryptographic algorithms, including AES, RSA, and Blowfish.
     Hiding messages within digital images using steganography techniques.
@@ -10,7 +10,7 @@ Cryptogram is an open-source encryption and steganography tool designed for Linu
     User-friendly interface for easy navigation and use.
     Cross-platform compatibility, allowing for use on different Linux distributions.
 
-#Installation
+# Installation
 
 To install Cryptogram, follow these steps:
 
@@ -18,7 +18,7 @@ To install Cryptogram, follow these steps:
     Navigate to the project directory using the command: cd Cryptogram
     Install the required Python libraries using the command: pip install -r requirements.txt
 
-#Usage
+# Usage
 
 To use Cryptogram, follow these steps:
 
@@ -26,7 +26,7 @@ To use Cryptogram, follow these steps:
     Select Cryptography or Steganography based on your requirement.
     Choose an algorithm and whether you want to encrypt or decrypt data.
 
-#Features
+# Features
 
     Provides advanced encryption and decryption using cryptography and steganography techniques
     Supports various image and video file formats for hiding the encrypted data
@@ -34,7 +34,7 @@ To use Cryptogram, follow these steps:
     Provides a user-friendly command-line interface for ease of use
     Designed focussing the need of secure communication and data safety for Linux users
 
-#Future Scope
+# Future Scope
 
 In the future, we plan to add the following features to Cryptogram:
 
@@ -43,14 +43,14 @@ In the future, we plan to add the following features to Cryptogram:
     Support for more file formats for hiding encrypted data
     Advanced encryption algorithms to provide even greater security
 
-#Contributing
+# Contributing
 
 We welcome contributions from the community to help improve and expand Cryptogram. To contribute, please fork the repository and submit a pull request with your changes.
 
-#License
+# License
 
 Cryptogram is released under the MIT License.
 
-#Contact
+# Contact
 
 For any inquiries or support, please contact us at sarabmeetmasson@gmail.com.
