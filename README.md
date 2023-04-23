@@ -14,10 +14,15 @@ Cryptogram is an open-source encryption and steganography tool designed for Linu
 
 To install Cryptogram, follow these steps:
 - Clone the repository using the command:
+
     git clone https://github.com/SarabmeetMasson/Cryptogram.git
+
 - Navigate to the project directory using the command:
+
     cd Cryptogram
+
 - Install the required Python libraries using the command:
+
     pip install -r requirements.txt
 
 # Usage
