@@ -55,7 +55,7 @@ We welcome contributions from the community to help improve and expand Cryptogra
 
 # License
 
-Cryptogram is released under the MIT License.
+Cryptogram is released under the BSD 4-Clause License.
 
 # Contact
 
