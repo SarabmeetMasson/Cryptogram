@@ -877,145 +877,378 @@ while x1 == 1:
         while x2 == 1:
 
             print(attr(1), fg(178),"\nSteganography:")
+            try:
+                stegano = int(input("1. IMAGE Steganography \n2. VIDEO Steganography \n3. AUDIO Steganography \n4. TEXT Steganography \nSelect a Steganography Algorithm: "))
+            except:
+                print(attr(1), fg(1),"\nIllegal action, try again.")
 
-            # PIL module is used to extract
-            # pixels of image and modify it
-            from PIL import Image
 
-            # Convert encoding data into 8-bit binary
-            # form using ASCII value of characters
-            def genData(data):
+            if stegano == 1:
 
-                    # list of binary codes
-                    # of given data
-                    newd = []
+                x3 = 1
+                while x3 == 1:
 
-                    for i in data:
-                        newd.append(format(ord(i), '08b'))
-                    return newd
+                    from PIL import Image
 
-            # Pixels are modified according to the
-            # 8-bit binary data and finally returned
-            def modPix(pix, data):
+                    # Convert encoding data into 8-bit binary
+                    # form using ASCII value of characters
+                    def genData(data):
 
-                datalist = genData(data)
-                lendata = len(datalist)
-                imdata = iter(pix)
+                            # list of binary codes
+                            # of given data
+                            newd = []
 
-                for i in range(lendata):
+                            for i in data:
+                                newd.append(format(ord(i), '08b'))
+                            return newd
 
-                    # Extracting 3 pixels at a time
-                    pix = [value for value in imdata.__next__()[:3] +
-                                            imdata.__next__()[:3] +
-                                            imdata.__next__()[:3]]
+                    # Pixels are modified according to the
+                    # 8-bit binary data and finally returned
+                    def modPix(pix, data):
 
-                    # Pixel value should be made
-                    # odd for 1 and even for 0
-                    for j in range(0, 8):
-                        if (datalist[i][j] == '0' and pix[j]% 2 != 0):
-                            pix[j] -= 1
+                        datalist = genData(data)
+                        lendata = len(datalist)
+                        imdata = iter(pix)
 
-                        elif (datalist[i][j] == '1' and pix[j] % 2 == 0):
-                            if(pix[j] != 0):
-                                pix[j] -= 1
+                        for i in range(lendata):
+
+                            # Extracting 3 pixels at a time
+                            pix = [value for value in imdata.__next__()[:3] +
+                                                    imdata.__next__()[:3] +
+                                                    imdata.__next__()[:3]]
+
+                            # Pixel value should be made
+                            # odd for 1 and even for 0
+                            for j in range(0, 8):
+                                if (datalist[i][j] == '0' and pix[j]% 2 != 0):
+                                    pix[j] -= 1
+
+                                elif (datalist[i][j] == '1' and pix[j] % 2 == 0):
+                                    if(pix[j] != 0):
+                                        pix[j] -= 1
+                                    else:
+                                        pix[j] += 1
+                                    # pix[j] -= 1
+
+                            # Eighth pixel of every set tells
+                            # whether to stop ot read further.
+                            # 0 means keep reading; 1 means thec
+                            # message is over.
+                            if (i == lendata - 1):
+                                if (pix[-1] % 2 == 0):
+                                    if(pix[-1] != 0):
+                                        pix[-1] -= 1
+                                    else:
+                                        pix[-1] += 1
+
                             else:
-                                pix[j] += 1
-                            # pix[j] -= 1
+                                if (pix[-1] % 2 != 0):
+                                    pix[-1] -= 1
 
-                    # Eighth pixel of every set tells
-                    # whether to stop ot read further.
-                    # 0 means keep reading; 1 means thec
-                    # message is over.
-                    if (i == lendata - 1):
-                        if (pix[-1] % 2 == 0):
-                            if(pix[-1] != 0):
-                                pix[-1] -= 1
+                            pix = tuple(pix)
+                            yield pix[0:3]
+                            yield pix[3:6]
+                            yield pix[6:9]
+
+                    def encode_enc(newimg, data):
+                        w = newimg.size[0]
+                        (x, y) = (0, 0)
+
+                        for pixel in modPix(newimg.getdata(), data):
+
+                            # Putting modified pixels in the new image
+                            newimg.putpixel((x, y), pixel)
+                            if (x == w - 1):
+                                x = 0
+                                y += 1
                             else:
-                                pix[-1] += 1
+                                x += 1
 
-                    else:
-                        if (pix[-1] % 2 != 0):
-                            pix[-1] -= 1
+                    # Encode data into image
+                    def encode():
+                        print(attr(1), fg(105), "\nIMAGE Stegano Encryption:")
+                        img = input("Image to hide the message in[with extension]: ")
+                        image = Image.open(img, 'r')
 
-                    pix = tuple(pix)
-                    yield pix[0:3]
-                    yield pix[3:6]
-                    yield pix[6:9]
+                        data = input("Message to hide:  ")
+                        if (len(data) == 0):
+                            raise ValueError('Data is Empty')
 
-            def encode_enc(newimg, data):
-                w = newimg.size[0]
-                (x, y) = (0, 0)
+                        newimg = image.copy()
+                        encode_enc(newimg, data)
 
-                for pixel in modPix(newimg.getdata(), data):
+                        new_img_name = input("New image name[with extension]: ")
+                        newimg.save(new_img_name, str(new_img_name.split(".")[1].upper()))
 
-                    # Putting modified pixels in the new image
-                    newimg.putpixel((x, y), pixel)
-                    if (x == w - 1):
-                        x = 0
-                        y += 1
-                    else:
-                        x += 1
+                    # Decode the data in the image
+                    def decode():
+                        print(attr(1), fg(105), "\nIMAGE Stegano Decryption:")
+                        img = input("Image to extract hidden message from[with extension]: ")
+                        image = Image.open(img, 'r')
 
-            # Encode data into image
-            def encode():
-                print(attr(1), fg(105), "\nIMAGE Stegano Encryption:")
-                img = input("Image to hide the message in[with extension]: ")
-                image = Image.open(img, 'r')
+                        data = ''
+                        imgdata = iter(image.getdata())
 
-                data = input("Message to hide:  ")
-                if (len(data) == 0):
-                    raise ValueError('Data is Empty')
+                        while (True):
+                            pixels = [value for value in imgdata.__next__()[:3] +
+                                                    imgdata.__next__()[:3] +
+                                                    imgdata.__next__()[:3]]
 
-                newimg = image.copy()
-                encode_enc(newimg, data)
+                            # string of binary data
+                            binstr = ''
 
-                new_img_name = input("New image name[with extension]: ")
-                newimg.save(new_img_name, str(new_img_name.split(".")[1].upper()))
+                            for i in pixels[:8]:
+                                if (i % 2 == 0):
+                                    binstr += '0'
+                                else:
+                                    binstr += '1'
 
-            # Decode the data in the image
-            def decode():
-                print(attr(1), fg(105), "\nIMAGE Stegano Decryption:")
-                img = input("Image to extract hidden message from[with extension]: ")
-                image = Image.open(img, 'r')
+                            data += chr(int(binstr, 2))
+                            if (pixels[-1] % 2 != 0):
+                                return data
 
-                data = ''
-                imgdata = iter(image.getdata())
+                    # Main Function
+                    def main():
+                        print(attr(1), fg(153), "\nIMAGE Steganography")
+                        a = int(input("1. Encode \n2. Decode \nYou Chose: "))
+                        if (a == 1):
+                            encode()
 
-                while (True):
-                    pixels = [value for value in imgdata.__next__()[:3] +
-                                            imgdata.__next__()[:3] +
-                                            imgdata.__next__()[:3]]
-
-                    # string of binary data
-                    binstr = ''
-
-                    for i in pixels[:8]:
-                        if (i % 2 == 0):
-                            binstr += '0'
+                        elif (a == 2):
+                            print("Decoded Word :  " + decode())
                         else:
-                            binstr += '1'
+                            print(attr(1), fg(1),"\nIllegal action, try again.")
 
-                    data += chr(int(binstr, 2))
-                    if (pixels[-1] % 2 != 0):
-                        return data
+                    # Driver Code
+                    if __name__ == '__main__' :
 
-            # Main Function
-            def main():
-                print(attr(1), fg(153), "\nIMAGE Steganography")
-                a = int(input("1. Encode \n2. Decode \nYou Chose: "))
-                if (a == 1):
-                    encode()
+                        # Calling main function
+                        main()
+                    
+                    x3 = int(input("Do you want to try again?[1=Yes / 0=No]: "))
+            
 
-                elif (a == 2):
-                    print("Decoded Word :  " + decode())
-                else:
-                    print(attr(1), fg(1),"\nIllegal action, try again.")
 
-            # Driver Code
-            if __name__ == '__main__' :
+            elif stegano == 2:
 
-                # Calling main function
-                main()
+                import numpy as np
+                import pandas as pand
+                import os
+                import cv2
+                from PIL import Image
+                from matplotlib import pyplot as plt
+
+                def msgtobinary(msg):
+                    if type(msg) == str:
+                        result= ''.join([ format(ord(i), "08b") for i in msg ])
+                    
+                    elif type(msg) == bytes or type(msg) == np.ndarray:
+                        result= [ format(i, "08b") for i in msg ]
+                    
+                    elif type(msg) == int or type(msg) == np.uint8:
+                        result=format(msg, "08b")
+
+                    else:
+                        raise TypeError("Input type is not supported in this function.")
+                    
+                    return result
+
+
+                def KSA(key):
+                    key_length = len(key)
+                    S=list(range(256)) 
+                    j=0
+                    for i in range(256):
+                        j=(j+S[i]+key[i % key_length]) % 256
+                        S[i],S[j]=S[j],S[i]
+                    return S
+
+
+                def PRGA(S,n):
+                    i=0
+                    j=0
+                    key=[]
+                    while n>0:
+                        n=n-1
+                        i=(i+1)%256
+                        j=(j+S[i])%256
+                        S[i],S[j]=S[j],S[i]
+                        K=S[(S[i]+S[j])%256]
+                        key.append(K)
+                    return key
+
+
+                def preparing_key_array(s):
+                    return [ord(c) for c in s]
+
+
+                def encryption(plaintext):
+                    print("Enter the key : ")
+                    key=input()
+                    key=preparing_key_array(key)
+
+                    S=KSA(key)
+
+                    keystream=np.array(PRGA(S,len(plaintext)))
+                    plaintext=np.array([ord(i) for i in plaintext])
+
+                    cipher=keystream^plaintext
+                    ctext=''
+                    for c in cipher:
+                        ctext=ctext+chr(c)
+                    return ctext
+
+
+                def decryption(ciphertext):
+                    print("Enter the key : ")
+                    key=input()
+                    key=preparing_key_array(key)
+
+                    S=KSA(key)
+
+                    keystream=np.array(PRGA(S,len(ciphertext)))
+                    ciphertext=np.array([ord(i) for i in ciphertext])
+
+                    decoded=keystream^ciphertext
+                    dtext=''
+                    for c in decoded:
+                        dtext=dtext+chr(c)
+                    return dtext
+
+
+                def embed(frame):
+                    data=input("\nEnter the data to be Encoded in Video: ") 
+                    data=encryption(data)
+                    if (len(data) == 0): 
+                        raise ValueError('Data entered to be encoded is empty.')
+
+                    data +='*^*^*'
+                    
+                    binary_data=msgtobinary(data)
+                    length_data = len(binary_data)
+                    
+                    index_data = 0
+                    
+                    for i in frame:
+                        for pixel in i:
+                            r, g, b = msgtobinary(pixel)
+                            if index_data < length_data:
+                                pixel[0] = int(r[:-1] + binary_data[index_data], 2) 
+                                index_data += 1
+                            if index_data < length_data:
+                                pixel[1] = int(g[:-1] + binary_data[index_data], 2) 
+                                index_data += 1
+                            if index_data < length_data:
+                                pixel[2] = int(b[:-1] + binary_data[index_data], 2) 
+                                index_data += 1
+                            if index_data >= length_data:
+                                break
+                        return frame
+
+
+                def extract(frame):
+                    data_binary = ""
+                    final_decoded_msg = ""
+                    for i in frame:
+                        for pixel in i:
+                            r, g, b = msgtobinary(pixel) 
+                            data_binary += r[-1]  
+                            data_binary += g[-1]  
+                            data_binary += b[-1]  
+                            total_bytes = [ data_binary[i: i+8] for i in range(0, len(data_binary), 8) ]
+                            decoded_data = ""
+                            for byte in total_bytes:
+                                decoded_data += chr(int(byte, 2))
+                                if decoded_data[-5:] == "*^*^*": 
+                                    for i in range(0,len(decoded_data)-5):
+                                        final_decoded_msg += decoded_data[i]
+                                    final_decoded_msg = decryption(final_decoded_msg)
+                                    print("The Encoded data which was hidden in the Video was: ",final_decoded_msg)
+                                    return 
+
+
+                def encode_vid_data():
+                    video_file = input("\nEnter the name of the Video file[with extention]: ")
+                    new_file_name = input("Enter the name of the Stegano Video file to be generated[with extention]: ")
+                    cap=cv2.VideoCapture(video_file)
+                    vidcap = cv2.VideoCapture(video_file)
+                    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+                    frame_width = int(cap.get(3))
+                    frame_height = int(cap.get(4))
+                    size = (frame_width, frame_height)
+                    out = cv2.VideoWriter(new_file_name, fourcc, 25.0, size)
+                    
+                    max_frame=0;
+                    while(cap.isOpened()):
+                        ret, frame = cap.read()
+                        if ret == False:
+                            break 
+                        max_frame+=1
+                    cap.release()
+                    print("Total number of Frame in selected Video: ",max_frame)
+                    print("Enter the frame number to embed data: ")
+                    n=int(input())
+                    frame_number = 0
+                    while(vidcap.isOpened()):
+                        frame_number += 1
+                        ret, frame = vidcap.read()
+                        if ret == False:
+                            break
+                        if frame_number == n:    
+                            change_frame_with = embed(frame)
+                            frame_ = change_frame_with
+                            frame = change_frame_with
+                        out.write(frame)
+                    
+                    print("Encoded the data successfully in the video file.\n")
+                    return frame_
+
+
+                def decode_vid_data(frame_):
+                    filename = input("\nEnter the name of the Stegano Video file[with extention]: ")
+                    cap = cv2.VideoCapture(filename)
+                    max_frame = 0
+                    while(cap.isOpened()):
+                        ret, frame = cap.read()
+                        if ret == False:
+                            break
+                        max_frame += 1
+                    print("Total number of Frame in selected Video: ", max_frame)
+                    n = int(input("Enter the frame number to extract the data from: "))
+                    vidcap = cv2.VideoCapture(filename)
+                    # rest of the code
+
+                    frame_number = 0
+                    while(vidcap.isOpened()):
+                        frame_number += 1
+                        ret, frame = vidcap.read()
+                        if ret == False:
+                            break
+                        if frame_number == n:
+                            extract(frame_)
+                            return
+
+
+                def vid_steg():
+                    x3 = 1
+                    while x3 == 1:
+                        choice1 = int(input("\nVIDEO Stegnography\n1. Encode\n2. Decode\nYou Chose: "))   
+                        if choice1 == 1:
+                            a=encode_vid_data()
+                        elif choice1 == 2:
+                            decode_vid_data(a)
+                        else:
+                            print("Illegal action, try again.")
+                        x3 = int(input("Do you want to try again?[1=Yes / 0=No]: "))
+
+
+
+                # Driver Code
+                if __name__ == '__main__' :
+                    # Calling main function
+                    vid_steg()
+
+
 
             x2 = int(input("Visit Algorithms again?[1=Yes / 0=No]: "))
 
