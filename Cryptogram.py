@@ -1257,5 +1257,6 @@ while x1 == 1:
         print(attr(1), fg(1),"\nIllegal action, try again.")
 
     x1 = int(input("Revisit main Menu?[1=Yes / 0=No]: "))
+    
 
 
