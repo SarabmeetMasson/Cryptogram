@@ -880,7 +880,7 @@ while x1 == 1:
             try:
                 stegano = int(input("1. IMAGE Steganography \n2. VIDEO Steganography \n3. AUDIO Steganography \n4. TEXT Steganography \nSelect a Steganography Algorithm: "))
             except:
-                print(attr(1), fg(1),"\nIllegal action, try again.")
+                print(attr(1), fg(1), "\nIllegal action, try again.")
 
 
             if stegano == 1:
@@ -1049,7 +1049,7 @@ while x1 == 1:
                         result=format(msg, "08b")
 
                     else:
-                        raise TypeError("Input type is not supported in this function.")
+                        raise TypeError(attr(1), fg(1), "Input type is not supported in this function.")
                     
                     return result
 
@@ -1083,7 +1083,7 @@ while x1 == 1:
 
 
                 def encryption(plaintext):
-                    print("Enter the key : ")
+                    print("Enter the key: ")
                     key=input()
                     key=preparing_key_array(key)
 
@@ -1100,7 +1100,7 @@ while x1 == 1:
 
 
                 def decryption(ciphertext):
-                    print("Enter the key : ")
+                    print("Enter the key: ")
                     key=input()
                     key=preparing_key_array(key)
 
@@ -1120,7 +1120,7 @@ while x1 == 1:
                     data=input("\nEnter the data to be Encoded in Video: ") 
                     data=encryption(data)
                     if (len(data) == 0): 
-                        raise ValueError('Data entered to be encoded is empty.')
+                        raise ValueError(attr(1), fg(1), 'Data entered to be encoded is empty.')
 
                     data +='*^*^*'
                     
@@ -1232,13 +1232,16 @@ while x1 == 1:
                 def vid_steg():
                     x3 = 1
                     while x3 == 1:
-                        choice1 = int(input("\nVIDEO Stegnography\n1. Encode\n2. Decode\nYou Chose: "))   
+                        print(attr(1), fg(153), "\nVIDEO Stegnography")
+                        choice1 = int(input("1. VIDEO Encode\n2. VIDEO Decode\nYou Chose: "))   
                         if choice1 == 1:
+                            print(attr(1), fg(105), "\nVIDEO Encode")
                             a=encode_vid_data()
                         elif choice1 == 2:
+                            print(attr(1), fg(105), "\nVIDEO Decode")
                             decode_vid_data(a)
                         else:
-                            print("Illegal action, try again.")
+                            print(attr(1), fg(1), "Illegal action, try again.")
                         x3 = int(input("Do you want to try again?[1=Yes / 0=No]: "))
 
 
