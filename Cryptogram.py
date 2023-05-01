@@ -1266,7 +1266,7 @@ while x1 == 1:
                     frame_list=list(frames)
                     frame_bytes=bytearray(frame_list)
 
-                    data = input("\nEnter the data to be Encoded in Audio: ")
+                    data = input("Enter the data to be Encoded in Audio: ")
 
                     res = ''.join(format(i, '08b') for i in bytearray(data, encoding ='utf-8'))     
                     length = len(res)
@@ -1289,18 +1289,18 @@ while x1 == 1:
                     
                     frame_modified = bytes(frame_bytes)
 
-                    stegofile=input("\nEnter the name of the Stegano Audio file to be generated[with extention]: ")
+                    stegofile=input("Enter the name of the Stegano Audio file to be generated[with extention]: ")
                     with wave.open(stegofile, 'wb') as fd:
                         fd.setparams(song.getparams())
                         fd.writeframes(frame_modified)
-                    print("\nEncoded the data successfully in the audio file.")    
+                    print("Encoded the data successfully in the audio file.\n")    
                     song.close()
 
 
                 def decode_aud_data():
                     import wave
 
-                    nameoffile=input("Enter the name of the Stegano Audio file[with extention]: ")
+                    nameoffile=input("\nEnter the name of the Stegano Audio file[with extention]: ")
                     song = wave.open(nameoffile, mode='rb')
 
                     nframes=song.getnframes()
@@ -1332,19 +1332,162 @@ while x1 == 1:
                 def aud_steg():
                     x3 = 1
                     while x3 == 1:
-                        choice1 = int(input("\nAUDIO Stegnography\n1. Encode\n2. Decode\nYou Chose: "))   
+                        print(attr(1), fg(153), "\nAUDIO Stegnography")
+                        choice1 = int(input("1. AUDIO Encode\n2. AUDIO Decode\nYou Chose: "))   
                         if choice1 == 1:
+                            print(attr(1), fg(105), "\nAUDIO Encode")
                             encode_aud_data()
                         elif choice1 == 2:
+                            print(attr(1), fg(105), "\nAUDIO Decode")
                             decode_aud_data()
                         else:
-                            print("Illegal action, try again.")
+                            print(attr(1), fg(1), "Illegal action, try again.")
                         x3 = int(input("Do you want to try again?[1=Yes / 0=No]: "))
 
 
 
                 if __name__ == "__main__":
                     aud_steg()
+
+
+        
+            elif stegano == 4:
+
+                def txt_encode(text, input_file):
+                    l=len(text)
+                    i=0
+                    add=''
+                    while i<l:
+                        t=ord(text[i])
+                        if(t>=32 and t<=64):
+                            t1=t+48
+                            t2=t1^170       #170: 10101010
+                            res = bin(t2)[2:].zfill(8)
+                            add+="0011"+res
+                        
+                        else:
+                            t1=t-48
+                            t2=t1^170
+                            res = bin(t2)[2:].zfill(8)
+                            add+="0110"+res
+                        i+=1
+                    res1=add+"111111111111"
+                    HM_SK=""
+                    ZWC={"00":u'\u200C',"01":u'\u202C',"11":u'\u202D',"10":u'\u200E'}      
+                    
+                    nameoffile = input("Enter the name of the Stegano Text file to be generated[with extention]: ")
+                    file1 = open(input_file,"r+")
+                    file3= open(nameoffile,"w+", encoding="utf-8")
+                    word=[]
+                    for line in file1: 
+                        word+=line.split()
+                    i=0
+                    while(i<len(res1)):  
+                        s=word[int(i/12)]
+                        j=0
+                        x=""
+                        HM_SK=""
+                        while(j<12):
+                            x=res1[j+i]+res1[i+j+1]
+                            HM_SK+=ZWC[x]
+                            j+=2
+                        s1=s+HM_SK
+                        file3.write(s1)
+                        file3.write(" ")
+                        i+=12
+                    t=int(len(res1)/12)     
+                    while t<len(word): 
+                        file3.write(word[t])
+                        file3.write(" ")
+                        t+=1
+                    file3.close()  
+                    file1.close()
+                    print("File Generated Successfully.\n")
+
+
+                def encode_txt_data():
+                    count2=0
+                    input_file = input("\nEnter the name of the Text file[with extention]: ")
+                    file1 = open(input_file,"r")
+                    for line in file1: 
+                        for word in line.split():
+                            count2=count2+1
+                    file1.close()       
+                    bt=int(count2)
+                    print("Maximum number of words that can be Inserted: ",int(bt/6))
+                    text1=input("Enter the data to be Encoded in TXT: ")
+                    l=len(text1)
+                    if(l<=bt):
+                        txt_encode(text1, input_file)
+                    else:
+                        print("String is too long, try again.")
+                        encode_txt_data()
+
+                def BinaryToDecimal(binary):
+                    string = int(binary, 2)
+                    return string
+
+                def decode_txt_data():
+                    ZWC_reverse={u'\u200C':"00",u'\u202C':"01",u'\u202D':"11",u'\u200E':"10"}
+                    stego=input("\nEnter the name of the Stegano Text file[with extention]: ")
+                    file4= open(stego,"r", encoding="utf-8")
+                    temp=''
+                    for line in file4: 
+                        for words in line.split():
+                            T1=words
+                            binary_extract=""
+                            for letter in T1:
+                                if(letter in ZWC_reverse):
+                                    binary_extract+=ZWC_reverse[letter]
+                            if binary_extract=="111111111111":
+                                break
+                            else:
+                                temp+=binary_extract
+                    lengthd = len(temp)
+                    i=0
+                    a=0
+                    b=4
+                    c=4
+                    d=12
+                    final=''
+                    while i<len(temp):
+                        t3=temp[a:b]
+                        a+=12
+                        b+=12
+                        i+=12
+                        t4=temp[c:d]
+                        c+=12
+                        d+=12
+                        if(t3=='0110'):
+                            decimal_data = BinaryToDecimal(t4)
+                            final+=chr((decimal_data ^ 170) + 48)
+                        elif(t3=='0011'):
+                            decimal_data = BinaryToDecimal(t4)
+                            final+=chr((decimal_data ^ 170) - 48)
+                    print("The Encoded data which was hidden in the Text was: ",final)
+
+
+                def txt_steg():
+                    x3 = 1
+                    while x3 == 1:
+                        print(attr(1), fg(153), "\nTEXT Stegnography")
+                        choice1 = int(input("1. TEXT Encode\n2. TEXT Decode\nYou Chose: "))   
+                        if choice1 == 1:
+                            print(attr(1), fg(105), "\nTEXT Encode")
+                            encode_txt_data()
+                        elif choice1 == 2:
+                            print(attr(1), fg(105), "\nTEXT Decode")
+                            decrypted=decode_txt_data() 
+                        else:
+                            print(attr(1), fg(1), "Illegal action, try again.")
+                        x3 = int(input("Do you want to try again?[1=Yes / 0=No]: "))
+
+
+                # Driver Code
+                if __name__ == '__main__' :
+                    # Calling main function
+                    txt_steg()
+
 
 
 
